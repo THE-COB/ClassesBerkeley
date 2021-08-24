@@ -1,14 +1,51 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-drawer/lib/style.css';
 import ClassItem from './ClassItem/ClassItem';
 import ClassObject from './ClassItem/ClassObject';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import {
+  Row,
+  Col,
+  Container,
+  InputGroup,
+  FormControl,
+  Button,
+  Form,
+  Collapse,
+} from 'react-bootstrap';
 import axios from 'axios';
 import React, { useState, useEffect, useRef} from 'react';
+import { Drawer, } from 'react-bootstrap-drawer';
+
+const ApplicationDrawer = (props) => {
+  const [open, setOpen] = useState(false);
+
+  const handleToggle = () => setOpen(!open);
+
+  return (
+      <Drawer { ...props }>
+          <Drawer.Toggle onClick={ handleToggle } />
+
+          <Collapse in={ open }>
+              <Drawer.Overflow>
+                  <Drawer.ToC>
+                      <Form>
+                        <Drawer.Header>Breath Requirements</Drawer.Header>
+                        <Form.Group className="mb-3">
+                          <Form.Check type="checkbox" label="Arts & Literature" />
+                          <Form.Check type="checkbox" label="Physical Science" />
+                          <Form.Check type="checkbox" label="Social & Behavioral Sciences" />
+                          <Form.Check type="checkbox" label="Historical Studies" />
+                          <Form.Check type="checkbox" label="Biological Science" />
+                          <Form.Check type="checkbox" label="Philosophy & Values" />
+                          <Form.Check type="checkbox" label="Historical Studies" />
+                        </Form.Group>
+                      </Form>
+                  </Drawer.ToC>
+              </Drawer.Overflow>
+          </Collapse>
+      </Drawer>
+  );
+};
 
 function createClass(searchResult){
   return new ClassObject(JSON.parse(searchResult.children[0].getAttribute('data-json')));
@@ -49,6 +86,7 @@ function App() {
       <>
       <br></br>
       <Row>
+        
         <Col xs={9} sm={9} md={6} lg={6}>
           <InputGroup size="sm" className="mb-3">
             <>
@@ -63,8 +101,22 @@ function App() {
       </Row>
       <br></br>
       <Row>
-        <Col lg={10} xs={12}>
-          {classes.map(item => <><ClassItem>{item}</ClassItem><br></br></>)}
+        <Col as={ ApplicationDrawer } xs={ 12 } md={ 3 } lg={ 2 } />
+        {/* <Col xs={1} lg={2}>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Check type="checkbox" label="Arts & Literature" />
+              <Form.Check type="checkbox" label="Physical Science" />
+              <Form.Check type="checkbox" label="Social & Behavioral Sciences" />
+              <Form.Check type="checkbox" label="Historical Studies" />
+              <Form.Check type="checkbox" label="Biological Science" />
+              <Form.Check type="checkbox" label="Philosophy & Values" />
+              <Form.Check type="checkbox" label="Historical Studies" />
+            </Form.Group>
+          </Form>
+        </Col> */}
+        <Col lg={10} xs={11}>
+          {classes.map(item => <ClassItem key={item.id} item={item} />)}
         </Col>
       </Row>
       </>

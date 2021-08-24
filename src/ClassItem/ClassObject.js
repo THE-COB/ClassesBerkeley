@@ -1,12 +1,16 @@
 class ClassObject {
     constructor(dataJson) {
         this.data = dataJson;
+        console.log(this.data);
         this.classTitle = this.data.class.course.title;
         this.classTitle = this.classTitle.replaceAll('Vergil', 'Virgil');
         this.classDisplayName = this.data.displayName;
         this.id = this.data.id;
         try{
             this.instructor = this.data.meetings[0].assignedInstructors[0].instructor.names[0].formattedName;
+            for(let i = 1; i<this.data.meetings[0].assignedInstructors.length; i++){
+                this.instructor += ", " + this.data.meetings[0].assignedInstructors[i].instructor.names[0].formattedName;
+            }
         } catch (e) {
             this.instructor = "";
         }
