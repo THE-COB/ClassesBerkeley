@@ -1,0 +1,12 @@
+.mb-3 {
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
+
+.accordion-body {
+    padding: 0 0 0 0;
+}
+
+.filterHeader button {
+    white-space: inherit;
+}
