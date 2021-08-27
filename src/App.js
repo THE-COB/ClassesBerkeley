@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import 'react-bootstrap-drawer/lib/style.css';
+import './App.css';
 import ClassItem from './ClassItem/ClassItem';
 import ClassObject from './ClassItem/ClassObject';
 import {
@@ -9,43 +11,10 @@ import {
   InputGroup,
   FormControl,
   Button,
-  Form,
-  Collapse,
 } from 'react-bootstrap';
 import axios from 'axios';
 import React, { useState, useEffect, useRef} from 'react';
-import { Drawer, } from 'react-bootstrap-drawer';
-
-const ApplicationDrawer = (props) => {
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => setOpen(!open);
-
-  return (
-      <Drawer { ...props }>
-          <Drawer.Toggle onClick={ handleToggle } />
-
-          <Collapse in={ open }>
-              <Drawer.Overflow>
-                  <Drawer.ToC>
-                      <Form>
-                        <Drawer.Header>Breath Requirements</Drawer.Header>
-                        <Form.Group className="mb-3">
-                          <Form.Check type="checkbox" label="Arts & Literature" />
-                          <Form.Check type="checkbox" label="Physical Science" />
-                          <Form.Check type="checkbox" label="Social & Behavioral Sciences" />
-                          <Form.Check type="checkbox" label="Historical Studies" />
-                          <Form.Check type="checkbox" label="Biological Science" />
-                          <Form.Check type="checkbox" label="Philosophy & Values" />
-                          <Form.Check type="checkbox" label="Historical Studies" />
-                        </Form.Group>
-                      </Form>
-                  </Drawer.ToC>
-              </Drawer.Overflow>
-          </Collapse>
-      </Drawer>
-  );
-};
+import ApplicationDrawer from './ApplicationDrawer/ApplicationDrawer';
 
 function createClass(searchResult){
   return new ClassObject(JSON.parse(searchResult.children[0].getAttribute('data-json')));
@@ -55,14 +24,37 @@ function App() {
   const [classes, setClasses] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const searchRef = useRef(null);
+  const [pageNum, setPageNum] = useState(0);
+  const [triedSearching, setTriedSearching] = useState('Try searching something!');
+  
+  const [breadthFilters, setBreathFilters] = useState([]);
+  const [genReqFilters, setGenReqFilters] = useState([]);
+  const [openSeatsFilter, setOpenSeatsFilter] = useState(false);
+
 
   useEffect(() => {
     if(isLoading) {
+      setTriedSearching('Searching...');
       let baseUrl = '/search/class/' + searchRef.current.value;
+      let payloadNum = 1;
+      let paramObj = {
+        'page': pageNum,
+        "f[0]": "im_field_term_name:2208"
+      };
+      breadthFilters.forEach((filter, index) => {
+        paramObj["f[" + payloadNum + "]"] = "sm_breadth_reqirement:"+filter;
+        payloadNum++;
+      });
+      genReqFilters.forEach((filter, index) => {
+        paramObj["f[" + payloadNum + "]"] = "sm_general_requirement:"+filter;
+        payloadNum++;
+      });
+      if(openSeatsFilter) {
+        paramObj["f[" + payloadNum + "]"] = "ts_open_seats:open";
+        payloadNum++;
+      }
       axios.get(baseUrl, {
-        params: {
-          "f[0]": "im_field_term_name:2208"
-        }
+        params: paramObj
       }).then(function (response) {
         let parser = new DOMParser();
         let htmlDoc = parser.parseFromString(response.data, "text/html");
@@ -72,6 +64,9 @@ function App() {
           allClasses.push(createClass(element));
         }
         setClasses(allClasses);
+        if(allClasses.length === 0){
+          setTriedSearching('Go outside lmao');
+        }
       });
     }
   }, [isLoading]);
@@ -80,7 +75,18 @@ function App() {
     setLoading(false);
   }, [classes]);
 
-  const handleClick = () => setLoading(true);
+  const handlePageChange = (pageChange) => {
+    let newPage = pageNum+pageChange;
+    if(newPage >= 0){
+      setPageNum(newPage);
+      setLoading(true);
+    }
+  }
+
+  const handleClick = () => {
+     setLoading(true);
+     setPageNum(0);
+  }
   return (
     <Container fluid="md" >
       <>
@@ -101,24 +107,28 @@ function App() {
       </Row>
       <br></br>
       <Row>
-        <Col as={ ApplicationDrawer } xs={ 12 } md={ 3 } lg={ 2 } />
-        {/* <Col xs={1} lg={2}>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Check type="checkbox" label="Arts & Literature" />
-              <Form.Check type="checkbox" label="Physical Science" />
-              <Form.Check type="checkbox" label="Social & Behavioral Sciences" />
-              <Form.Check type="checkbox" label="Historical Studies" />
-              <Form.Check type="checkbox" label="Biological Science" />
-              <Form.Check type="checkbox" label="Philosophy & Values" />
-              <Form.Check type="checkbox" label="Historical Studies" />
-            </Form.Group>
-          </Form>
-        </Col> */}
+        <Col xs={ 12 } md={ 3 } lg={ 2 }>
+          <ApplicationDrawer getters={{
+            breadths: breadthFilters,
+            genReqs: genReqFilters,
+            openSeats: openSeatsFilter
+          }} 
+          setters={{
+            breadths: setBreathFilters,
+            genReqs: setGenReqFilters,
+            openSeats: setOpenSeatsFilter
+          }} />
+        </Col>
+        
         <Col lg={10} xs={11}>
-          {classes.map(item => <ClassItem key={item.id} item={item} />)}
+          {classes.length > 0 ? classes.map(item => <ClassItem key={item.id} item={item} />) : <p>{triedSearching}</p>}
+          {(classes.length > 0 || triedSearching === 'Go outside lmao') && <Button className="pageChange" onClick={() => handlePageChange(-1)} variant="light"><i className="bi bi-arrow-left arrowIcon"></i></Button>}
+          {classes.length > 0 && <p id="pageNum">{pageNum}</p>}
+          {classes.length > 0 && <Button className="pageChange" onClick={() => handlePageChange(1)} variant="light"><i className="bi bi-arrow-right arrowIcon"></i></Button>}
         </Col>
       </Row>
+      <br></br>
+      
       </>
     </Container>
   );

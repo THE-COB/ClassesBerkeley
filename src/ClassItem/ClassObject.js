@@ -1,7 +1,6 @@
 class ClassObject {
     constructor(dataJson) {
         this.data = dataJson;
-        console.log(this.data);
         this.classTitle = this.data.class.course.title;
         this.classTitle = this.classTitle.replaceAll('Vergil', 'Virgil');
         this.classDisplayName = this.data.displayName;

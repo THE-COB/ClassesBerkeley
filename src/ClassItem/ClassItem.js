@@ -8,7 +8,6 @@ function ClassItem(props) {
     if(typeof props.item === 'undefined'){
         return (<p></p>);
     }
-    console.log(props.item.data.meetings);
     return (
         <>
         <Card>
@@ -24,10 +23,12 @@ function ClassItem(props) {
                     <br></br>
                     <strong>Instruction Mode: </strong>{props.item.instructionMode}
                     <br></br>
+                    <strong>Location: </strong>{typeof props.item.data.meetings !== 'undefined' && typeof props.item.data.meetings[0].building.description !== 'undefined' ? props.item.data.meetings[0].location.description : "No location information"}
+                    <br></br>
                     <Accordion flush>
                     <Accordion.Item eventKey="0">
                         <Accordion.Header><strong>Open Seats:{'\u00A0'}</strong>{props.item.enrollmentStatus.status.description === 'Open' ? props.item.enrollmentStatus.maxEnroll-props.item.enrollmentStatus.enrolledCount : 'Closed'}</Accordion.Header>
-                        <Accordion.Body>
+                        <Accordion.Body id="openSeatsBody">
                             <ul>
                                 <li>Enrolled Count: {props.item.enrollmentStatus.enrolledCount+' / '+props.item.enrollmentStatus.maxEnroll}</li>
                                 <li>Waitlisted: {props.item.enrollmentStatus.waitlistedCount+' / '+props.item.enrollmentStatus.maxWaitlist}</li>
@@ -37,6 +38,7 @@ function ClassItem(props) {
                                     {typeof props.item.enrollmentStatus.seatReservations !== 'undefined' && 
                                     props.item.enrollmentStatus.seatReservations.map((reserve, index) => {
                                         let numOpen = reserve.maxEnroll-reserve.enrolledCount+'/'+reserve.maxEnroll;
+                                        console.log(numOpen);
                                         return <li className="sublist" key={index}><tt>{'\u00A0'.repeat(8-numOpen.length)+numOpen}</tt>{': '+reserve.requirementGroup.description.replace('College of Letters & Sciences', 'L&S')}</li>
                                     })}
                                 </ul>

@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.arrowIcon {
+  font-size: x-large !important;
+}
+
+.pageChange {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+#pageNum {
+  display: inline;
+}

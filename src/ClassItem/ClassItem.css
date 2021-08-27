@@ -1,7 +1,9 @@
 .accordion-button {
     padding: 0rem !important;
     width: 20% !important;
-    min-width: 200px !important;
+    /* min-width: 200px !important; */
+    white-space: nowrap; 
+    background-color: transparent !important;
 }
 
 .accordion-button::after {
@@ -9,8 +11,8 @@
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: white !important;
-    color: black !important;
+    background-color: transparent !important;
+    color: inherit !important;
     box-shadow: none !important;
     border-color: white !important;
     border-radius: 0rem !important;
@@ -23,7 +25,7 @@
     box-shadow: none !important;
 }
 
-.accordion-body {
+#openSeatsBody {
     padding: 0.5rem 0.75rem !important;
 }
 
