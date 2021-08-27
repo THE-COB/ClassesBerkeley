@@ -38,7 +38,6 @@ function ClassItem(props) {
                                     {typeof props.item.enrollmentStatus.seatReservations !== 'undefined' && 
                                     props.item.enrollmentStatus.seatReservations.map((reserve, index) => {
                                         let numOpen = reserve.maxEnroll-reserve.enrolledCount+'/'+reserve.maxEnroll;
-                                        console.log(numOpen);
                                         return <li className="sublist" key={index}><tt>{'\u00A0'.repeat(8-numOpen.length)+numOpen}</tt>{': '+reserve.requirementGroup.description.replace('College of Letters & Sciences', 'L&S')}</li>
                                     })}
                                 </ul>
