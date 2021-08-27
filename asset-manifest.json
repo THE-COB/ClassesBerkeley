@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/ClassesBerkeley/static/css/main.968a5871.chunk.css",
+    "main.js": "/ClassesBerkeley/static/js/main.9fa6c7a6.chunk.js",
+    "main.js.map": "/ClassesBerkeley/static/js/main.9fa6c7a6.chunk.js.map",
+    "runtime-main.js": "/ClassesBerkeley/static/js/runtime-main.ac28cab0.js",
+    "runtime-main.js.map": "/ClassesBerkeley/static/js/runtime-main.ac28cab0.js.map",
+    "static/css/2.3f262b5e.chunk.css": "/ClassesBerkeley/static/css/2.3f262b5e.chunk.css",
+    "static/js/2.8016ae53.chunk.js": "/ClassesBerkeley/static/js/2.8016ae53.chunk.js",
+    "static/js/2.8016ae53.chunk.js.map": "/ClassesBerkeley/static/js/2.8016ae53.chunk.js.map",
+    "static/js/3.251e2be5.chunk.js": "/ClassesBerkeley/static/js/3.251e2be5.chunk.js",
+    "static/js/3.251e2be5.chunk.js.map": "/ClassesBerkeley/static/js/3.251e2be5.chunk.js.map",
+    "index.html": "/ClassesBerkeley/index.html",
+    "static/css/2.3f262b5e.chunk.css.map": "/ClassesBerkeley/static/css/2.3f262b5e.chunk.css.map",
+    "static/css/main.968a5871.chunk.css.map": "/ClassesBerkeley/static/css/main.968a5871.chunk.css.map",
+    "static/js/2.8016ae53.chunk.js.LICENSE.txt": "/ClassesBerkeley/static/js/2.8016ae53.chunk.js.LICENSE.txt",
+    "static/media/bootstrap-icons.css": "/ClassesBerkeley/static/media/bootstrap-icons.dfd0ea12.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ac28cab0.js",
+    "static/css/2.3f262b5e.chunk.css",
+    "static/js/2.8016ae53.chunk.js",
+    "static/css/main.968a5871.chunk.css",
+    "static/js/main.9fa6c7a6.chunk.js"
+  ]
+}
