@@ -35,7 +35,7 @@ function App() {
   useEffect(() => {
     if(isLoading) {
       setTriedSearching('Searching...');
-      let baseUrl = '/search/class/' + searchRef.current.value;
+      let baseUrl = 'https://classes.berkeley.edu/search/class/' + searchRef.current.value;
       let payloadNum = 1;
       let paramObj = {
         'page': pageNum,
@@ -58,6 +58,7 @@ function App() {
       }).then(function (response) {
         let parser = new DOMParser();
         let htmlDoc = parser.parseFromString(response.data, "text/html");
+        console.log(htmlDoc);
         let allResults = htmlDoc.getElementsByClassName('search-result');
         let allClasses = []
         for(let element of allResults){

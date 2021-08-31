@@ -1,5 +1,14 @@
-const proxy = require('http-proxy-middleware');
+const express = require('express');
+const createProxyMiddleware = require('http-proxy-middleware');
+const app = express();
 
 module.exports = function(app) {
-    app.use(proxy('/search/class', {target: 'https://classes.berkeley.edu', changeOrigin: true}));
+  app.use(
+    '/search/class',
+    createProxyMiddleware({
+      target: 'https://classes.berkeley.edu',
+      changeOrigin: true,
+    })
+  );
+  app.listen(3000);
 };
