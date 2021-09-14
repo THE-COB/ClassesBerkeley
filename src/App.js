@@ -35,7 +35,7 @@ function App() {
   useEffect(() => {
     if(isLoading) {
       setTriedSearching('Searching...');
-      let baseUrl = 'https://classes.berkeley.edu/search/class/' + searchRef.current.value;
+      let baseUrl = '/search/class/' + searchRef.current.value;
       let payloadNum = 1;
       let paramObj = {
         'page': pageNum,
