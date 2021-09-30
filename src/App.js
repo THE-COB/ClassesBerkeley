@@ -39,7 +39,7 @@ function App() {
       let payloadNum = 1;
       let paramObj = {
         'page': pageNum,
-        "f[0]": "im_field_term_name:2208"
+        "f[0]": "im_field_term_name:2538"
       };
       breadthFilters.forEach((filter, index) => {
         paramObj["f[" + payloadNum + "]"] = "sm_breadth_reqirement:"+filter;
