@@ -88,6 +88,7 @@ function App() {
      setLoading(true);
      setPageNum(0);
   }
+
   return (
     <Container fluid="md" >
       <>
@@ -98,7 +99,12 @@ function App() {
           <InputGroup size="sm" className="mb-3">
             <>
             <InputGroup.Text id="searchInput" >Search...</InputGroup.Text>
-            <FormControl aria-label="Small" ref={searchRef} aria-describedby="searchInput" />
+            <FormControl onKeyPress={(e) => {
+              if(e.key === 'Enter'){
+                setLoading(true);
+                setPageNum(0);
+              }
+            }} aria-label="Small" ref={searchRef} aria-describedby="searchInput" />
             <Button variant="outline-secondary" id="button-addon1" disabled={isLoading} onClick={!isLoading ? handleClick : null}>
               {!isLoading ? 'Submit' : 'Loading...'}
             </Button>
