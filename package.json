@@ -1,7 +1,6 @@
 {
   "name": "classes-berkeley",
   "version": "0.1.0",
-  "homepage": "https://classes.berkeley.edu/ClassesBerkeley",
   "proxy": "https://classes.berkeley.edu",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
