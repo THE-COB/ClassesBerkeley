@@ -82,3 +82,9 @@ ul {
     padding-top: 1rem !important;
     display: inline-block;
 }
+
+#bigEnrollment {
+    position: absolute;
+    top: 3em;
+    right: 2em;
+}

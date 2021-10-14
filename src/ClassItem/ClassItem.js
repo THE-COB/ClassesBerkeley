@@ -14,6 +14,7 @@ function ClassItem(props) {
             <Card.Header>{props.item.classDisplayName}</Card.Header>
             <Card.Body>
                 <Card.Title>{props.item.classTitle}</Card.Title>
+                <Card.Title id="bigEnrollment">{props.item.enrollmentStatus.enrolledCount+' / '+props.item.enrollmentStatus.maxEnroll}</Card.Title>
                 <Card.Subtitle>{props.item.instructor}</Card.Subtitle>
                 <br></br>
                     <ListGroup horizontal>
@@ -38,6 +39,7 @@ function ClassItem(props) {
                                     {typeof props.item.enrollmentStatus.seatReservations !== 'undefined' && 
                                     props.item.enrollmentStatus.seatReservations.map((reserve, index) => {
                                         let numOpen = reserve.maxEnroll-reserve.enrolledCount+'/'+reserve.maxEnroll;
+                                        console.log(8-numOpen.length);
                                         return <li className="sublist" key={index}><tt>{'\u00A0'.repeat(8-numOpen.length)+numOpen}</tt>{': '+reserve.requirementGroup.description.replace('College of Letters & Sciences', 'L&S')}</li>
                                     })}
                                 </ul>
