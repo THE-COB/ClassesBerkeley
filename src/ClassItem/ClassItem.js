@@ -14,7 +14,8 @@ function ClassItem(props) {
             <Card.Header>{props.item.classDisplayName}</Card.Header>
             <Card.Body>
                 <Card.Title>{props.item.classTitle}</Card.Title>
-                <Card.Title id="bigEnrollment">{props.item.enrollmentStatus.enrolledCount+' / '+props.item.enrollmentStatus.maxEnroll}</Card.Title>
+                {window.innerWidth > 600 && <Card.Title id="bigEnrollment">{props.item.enrollmentStatus.enrolledCount+' / '+props.item.enrollmentStatus.maxEnroll}</Card.Title>}
+                
                 <Card.Subtitle>{props.item.instructor}</Card.Subtitle>
                 <br></br>
                     <ListGroup horizontal>
