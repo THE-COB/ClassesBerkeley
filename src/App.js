@@ -26,6 +26,7 @@ function App() {
   const searchRef = useRef(null);
   const [pageNum, setPageNum] = useState(0);
   const [triedSearching, setTriedSearching] = useState('Try searching something!');
+  const [searchFix, setSearchFix] = useState('');
   
   const [breadthFilters, setBreathFilters] = useState([]);
   const [genReqFilters, setGenReqFilters] = useState([]);
@@ -36,6 +37,12 @@ function App() {
     if(isLoading) {
       setTriedSearching('Searching...');
       let baseUrl = '/search/class/' + searchRef.current.value;
+      let newSearchFix = '';
+      newSearchFix = /^ee/i.test(searchRef.current.value) ? searchRef.current.value.replace(/^ee\s?/i, 'eleng ') : newSearchFix;
+      newSearchFix = /^cs/i.test(searchRef.current.value) ? searchRef.current.value.replace(/^cs\s?/i, 'compsci ') : newSearchFix;
+      if(newSearchFix !== '') {
+        setSearchFix(newSearchFix);
+      }
       let payloadNum = 1;
       let paramObj = {
         'page': pageNum,
@@ -65,8 +72,11 @@ function App() {
           allClasses.push(createClass(element));
         }
         setClasses(allClasses);
+        
+
         if(allClasses.length === 0){
           setTriedSearching('Go outside lmao');
+          setSearchFix('');
         }
       });
     }
@@ -76,6 +86,9 @@ function App() {
     setLoading(false);
   }, [classes]);
 
+  useEffect(() => {
+    return;
+  }, [searchFix]);  
   const handlePageChange = (pageChange) => {
     let newPage = pageNum+pageChange;
     if(newPage >= 0){
@@ -87,6 +100,16 @@ function App() {
   const handleClick = () => {
      setLoading(true);
      setPageNum(0);
+  }
+
+  const changeSearch = () => {
+    if(searchFix === ''){
+      return;
+    }
+    searchRef.current.value = searchFix;
+    console.log(searchFix);
+    setSearchFix('');
+    handleClick();
   }
 
   return (
@@ -128,6 +151,7 @@ function App() {
         </Col>
         
         <Col lg={10} xs={11}>
+          {(classes.length > 0 && searchFix !== '') ? <p>Did you mean <a href="#" onClick={changeSearch}>{searchFix}</a>?</p> : <></>}
           {classes.length > 0 ? classes.map(item => <ClassItem key={item.id} item={item} />) : <p>{triedSearching}</p>}
           {(classes.length > 0 || triedSearching === 'Go outside lmao') && <Button className="pageChange" onClick={() => handlePageChange(-1)} variant="light"><i className="bi bi-arrow-left arrowIcon"></i></Button>}
           {classes.length > 0 && <p id="pageNum">{pageNum}</p>}
