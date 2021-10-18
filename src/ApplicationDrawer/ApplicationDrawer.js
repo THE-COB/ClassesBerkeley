@@ -25,6 +25,13 @@ function ApplicationDrawer(props){
         'American Institutions',
         'Entry Level Writing Requirement'
     ];
+
+    const allSemesters = [
+      'Fall 20',
+      'Spring 21',
+      'Fall 21',
+      'Spring 22'
+    ]
   
     const handleToggle = () => setOpen(!open);
     
@@ -35,6 +42,24 @@ function ApplicationDrawer(props){
             <Collapse in={ open }>
                 <Drawer.Overflow>
                     <Drawer.ToC>
+                        <Form>
+                        <Accordion flush>
+                          <Accordion.Header className="filterHeader"><Drawer.Header>Semester {'\u00A0'.repeat(22)}</Drawer.Header></Accordion.Header>
+                          <Accordion.Body>
+                          <Form.Group className="mb-3">
+                            {allSemesters.map(breadth => (
+                              <Form.Check checked={ props.getters.semesters===breadth && "true" } key={breadth} type="radio" label={breadth} onChange={(e) => {
+                                if (e.target.checked) {
+                                  props.setters.semesters(breadth);
+                                } else {
+                                  //props.setters.semesters(props.getters.semesters.filter(breadthFilter => breadthFilter !== breadth));
+                                }
+                              }}/>
+                            ))}
+                          </Form.Group>
+                          </Accordion.Body>
+                        </Accordion>
+                        </Form>
                         <Form>
                         <Accordion flush>
                           <Accordion.Header className="filterHeader"><Drawer.Header>General Requirements</Drawer.Header></Accordion.Header>
@@ -51,7 +76,7 @@ function ApplicationDrawer(props){
                             ))}
                           </Form.Group>
                           </Accordion.Body>
-                          </Accordion>
+                        </Accordion>
                         </Form>
                         <Form>
                           <Accordion flush>

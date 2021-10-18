@@ -28,6 +28,7 @@ function App() {
   const [triedSearching, setTriedSearching] = useState('Try searching something!');
   const [searchFix, setSearchFix] = useState('');
   
+  const [semesterFilters, setSemesterFilters] = useState('Spring 22');
   const [breadthFilters, setBreathFilters] = useState([]);
   const [genReqFilters, setGenReqFilters] = useState([]);
   const [openSeatsFilter, setOpenSeatsFilter] = useState(false);
@@ -35,6 +36,7 @@ function App() {
 
   useEffect(() => {
     if(isLoading) {
+      console.log(semesterFilters);
       setTriedSearching('Searching...');
       let baseUrl = '/search/class/' + searchRef.current.value;
       let newSearchFix = '';
@@ -44,9 +46,24 @@ function App() {
         setSearchFix(newSearchFix);
       }
       let payloadNum = 1;
+      let semesterCode = 2538;
+
+      switch(semesterFilters) {
+        case 'Spring 21':
+          semesterCode = 2010;
+          break;
+        case 'Fall 21':
+          semesterCode = 2208;
+          break;
+        case 'Fall 20':
+          semesterCode = 1961;
+          break;
+        default:
+          semesterCode = 2538;
+      }
       let paramObj = {
         'page': pageNum,
-        "f[0]": "im_field_term_name:2538"
+        "f[0]": "im_field_term_name:"+semesterCode
       };
       breadthFilters.forEach((filter, index) => {
         paramObj["f[" + payloadNum + "]"] = "sm_breadth_reqirement:"+filter;
@@ -138,11 +155,13 @@ function App() {
       <Row>
         <Col xs={ 12 } md={ 3 } lg={ 2 }>
           <ApplicationDrawer getters={{
+            semesters: semesterFilters,
             breadths: breadthFilters,
             genReqs: genReqFilters,
             openSeats: openSeatsFilter
           }} 
           setters={{
+            semesters: setSemesterFilters,
             breadths: setBreathFilters,
             genReqs: setGenReqFilters,
             openSeats: setOpenSeatsFilter
