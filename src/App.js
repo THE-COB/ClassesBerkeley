@@ -65,7 +65,6 @@ function App() {
       }).then(function (response) {
         let parser = new DOMParser();
         let htmlDoc = parser.parseFromString(response.data, "text/html");
-        console.log(htmlDoc);
         let allResults = htmlDoc.getElementsByClassName('search-result');
         let allClasses = []
         for(let element of allResults){

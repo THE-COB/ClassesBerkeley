@@ -34,7 +34,7 @@ function ClassItem(props) {
                             <ul>
                                 <li>Enrolled Count: {props.item.enrollmentStatus.enrolledCount+' / '+props.item.enrollmentStatus.maxEnroll}</li>
                                 <li>Waitlisted: {props.item.enrollmentStatus.waitlistedCount+' / '+props.item.enrollmentStatus.maxWaitlist}</li>
-                                <li>Reserved Seats Open: {props.item.enrollmentStatus.openReserved+' / '+props.item.enrollmentStatus.reservedCount}</li>
+                                <li>Reserved Seats Open: {props.item.enrollmentStatus.openReserved+' / '+ (parseInt(props.item.enrollmentStatus.reservedCount)+parseInt(props.item.enrollmentStatus.openReserved))}</li>
                                 <li>
                                 <ul>
                                     {typeof props.item.enrollmentStatus.seatReservations !== 'undefined' && 
