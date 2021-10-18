@@ -5,6 +5,7 @@ class ClassObject {
         this.classTitle = this.classTitle.replaceAll('Vergil', 'Virgil');
         this.classDisplayName = this.data.displayName;
         this.id = this.data.id;
+        console.log(this.data);
         try{
             this.instructor = this.data.meetings[0].assignedInstructors[0].instructor.names[0].formattedName;
             for(let i = 1; i<this.data.meetings[0].assignedInstructors.length; i++){
@@ -31,7 +32,8 @@ class ClassObject {
             this.description = "";
         }
         this.subject = this.data.class.course.subjectArea.description;
-        this.url = `https://classes.berkeley.edu/content/${this.data.displayName.replaceAll(' ', '-')}`   
+        this.url = `https://classes.berkeley.edu/content/${this.data.displayName.replaceAll(' ', '-')}`
+        this.berkeleyTime = `https://berkeleytime.com/catalog/${this.data.subjectName}/${this.data.course.catalogNumber.formatted}/`
     }
 }
 

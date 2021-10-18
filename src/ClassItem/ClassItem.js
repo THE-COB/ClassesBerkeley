@@ -54,7 +54,8 @@ function ClassItem(props) {
                         {window.innerWidth <= 600 && <button id="showMoreP">Show More</button>}
                     </div>
 
-                    <a id="viewDetails" href={props.item.url} target="_blank" rel="noreferrer">View Details</a>
+                    <a id="viewDetails" href={props.item.url} target="_blank" rel="noreferrer">View Details</a>{'\u00A0'.repeat(2)}
+                    <a id="viewBerkeleyTime" href={props.item.berkeleyTime} target="_blank" rel="noreferrer">View BerkeleyTime</a>
             </Card.Body>
         </Card>
         <br></br>
