@@ -40,7 +40,7 @@ function App() {
       setTriedSearching('Searching...');
       let baseUrl = '/search/class/' + searchRef.current.value;
       let newSearchFix = '';
-      newSearchFix = /^ee/i.test(searchRef.current.value) ? searchRef.current.value.replace(/^ee\s?/i, 'eleng ') : newSearchFix;
+      newSearchFix = /^ee(?!cs)/i.test(searchRef.current.value) ? searchRef.current.value.replace(/^ee\s?/i, 'eleng ') : newSearchFix;
       newSearchFix = /^cs/i.test(searchRef.current.value) ? searchRef.current.value.replace(/^cs\s?/i, 'compsci ') : newSearchFix;
       if(newSearchFix !== '') {
         setSearchFix(newSearchFix);
