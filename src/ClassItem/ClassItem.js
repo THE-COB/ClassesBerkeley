@@ -55,7 +55,8 @@ function ClassItem(props) {
                     </div>
 
                     <a id="viewDetails" href={props.item.url} target="_blank" rel="noreferrer">View Details</a>{'\u00A0'.repeat(2)}
-                    <a id="viewBerkeleyTime" href={props.item.berkeleyTime} target="_blank" rel="noreferrer">View BerkeleyTime</a>
+                    {props.item.berkeleyTime !== null && <a id="viewBerkeleyTime" href={props.item.berkeleyTime} target="_blank" rel="noreferrer">View BerkeleyTime</a>}
+                    {props.item.berkeleyTime == null && <a id="viewBerkeleyTime" href="https://noot.space/" target="_blank" rel="noreferrer">I can't find the BerkeleyTime but check this out</a>}
             </Card.Body>
         </Card>
         <br></br>

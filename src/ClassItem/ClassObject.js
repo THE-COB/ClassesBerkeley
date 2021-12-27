@@ -33,7 +33,12 @@ class ClassObject {
         }
         this.subject = this.data.class.course.subjectArea.description;
         this.url = `https://classes.berkeley.edu/content/${this.data.displayName.replaceAll(' ', '-')}`
-        this.berkeleyTime = `https://berkeleytime.com/catalog/${this.data.subjectName}/${this.data.course.catalogNumber.formatted}/`
+        if(this.data.course === undefined){
+            this.berkeleyTime = null;
+        }
+        else{
+            this.berkeleyTime = `https://berkeleytime.com/catalog/${this.data.subjectName}/${this.data.course.catalogNumber.formatted}/`
+        }
     }
 }
 
