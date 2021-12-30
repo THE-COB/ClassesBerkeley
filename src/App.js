@@ -49,6 +49,9 @@ function App() {
       let semesterCode = 2538;
 
       switch(semesterFilters) {
+        case 'Summer 22':
+          semesterCode = 2556;
+          break;
         case 'Spring 21':
           semesterCode = 2010;
           break;
