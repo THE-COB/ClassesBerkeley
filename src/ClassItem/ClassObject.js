@@ -25,7 +25,21 @@ class ClassObject {
             this.meetTimes = "";
         }
         this.instructionMode = this.data.instructionMode.description;
-        this.enrollmentStatus = this.data.enrollmentStatus;
+        if(this.data.hasOwnProperty("enrollmentStatus")){
+            this.enrollmentStatus = this.data.enrollmentStatus;
+        }
+        else {
+            this.enrollmentStatus = {
+                enrolledCount:0,
+                maxEnroll:0,
+                maxWaitlist: 0,
+                minEnroll: 0,
+                openReserved: 0,
+                reservedCount: 0,
+                waitlistedCount: 0,
+                status: {code: 'C', description: 'Closed'}
+            }
+        }
         try {
             this.description = this.data.course.description;
         } catch (e) {
