@@ -46,9 +46,15 @@ function App() {
         setSearchFix(newSearchFix);
       }
       let payloadNum = 1;
-      let semesterCode = 2538;
+      let semesterCode = 2587;
 
       switch(semesterFilters) {
+        case 'Fall 22':
+          semesterCode = 2587;
+          break;
+        case 'Spring 22':
+          semesterCode = 2538;
+          break;
         case 'Summer 22':
           semesterCode = 2556;
           break;
@@ -62,7 +68,7 @@ function App() {
           semesterCode = 1961;
           break;
         default:
-          semesterCode = 2538;
+          semesterCode = 2587;
       }
       let paramObj = {
         'page': pageNum,
