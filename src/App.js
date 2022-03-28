@@ -28,7 +28,7 @@ function App() {
   const [triedSearching, setTriedSearching] = useState('Try searching something!');
   const [searchFix, setSearchFix] = useState('');
   
-  const [semesterFilters, setSemesterFilters] = useState('Spring 22');
+  const [semesterFilters, setSemesterFilters] = useState('Fall 22');
   const [breadthFilters, setBreathFilters] = useState([]);
   const [genReqFilters, setGenReqFilters] = useState([]);
   const [openSeatsFilter, setOpenSeatsFilter] = useState(false);
