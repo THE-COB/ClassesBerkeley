@@ -15,9 +15,12 @@ import {
 import axios from 'axios';
 import React, { useState, useEffect, useRef} from 'react';
 import ApplicationDrawer from './ApplicationDrawer/ApplicationDrawer';
+import { fakeClasses } from './ClassItem/ClassObject';
+
+const EXAUSTED_LIMITS = "You have exhausted the limits of Berkeley education... Lucky for you, our donors have some fake classes for you to look at!"
 
 function createClass(searchResult){
-  return new ClassObject(JSON.parse(searchResult.children[0].getAttribute('data-json')));
+  return new ClassObject(JSON.parse(searchResult.children[0].getAttribute('data-json')), null);
 }
 
 function App() {
@@ -27,6 +30,7 @@ function App() {
   const [pageNum, setPageNum] = useState(0);
   const [triedSearching, setTriedSearching] = useState('Try searching something!');
   const [searchFix, setSearchFix] = useState('');
+  const [jokeClasses, setJokeClasses] = useState(false)
   
   const [semesterFilters, setSemesterFilters] = useState('Fall 22');
   const [breadthFilters, setBreathFilters] = useState([]);
@@ -100,8 +104,12 @@ function App() {
         
 
         if(allClasses.length === 0){
-          setTriedSearching('Go outside lmao');
+          setJokeClasses(true)
+          setTriedSearching(EXAUSTED_LIMITS);
           setSearchFix('');
+        }
+        else {
+          setJokeClasses(false)
         }
       });
     }
@@ -180,7 +188,8 @@ function App() {
         <Col lg={10} xs={11}>
           {(classes.length > 0 && searchFix !== '') ? <p>Did you mean <a href="#" onClick={changeSearch}>{searchFix}</a>?</p> : <></>}
           {classes.length > 0 ? classes.map(item => <ClassItem key={item.id} item={item} />) : <p>{triedSearching}</p>}
-          {(classes.length > 0 || triedSearching === 'Go outside lmao') && <Button className="pageChange" onClick={() => handlePageChange(-1)} variant="light"><i className="bi bi-arrow-left arrowIcon"></i></Button>}
+          {jokeClasses && fakeClasses.map(item => <ClassItem key={item.id} item={item} />)}
+          {(classes.length > 0 || triedSearching === EXAUSTED_LIMITS) && <Button className="pageChange" onClick={() => handlePageChange(-1)} variant="light"><i className="bi bi-arrow-left arrowIcon"></i></Button>}
           {classes.length > 0 && <p id="pageNum">{pageNum}</p>}
           {classes.length > 0 && <Button className="pageChange" onClick={() => handlePageChange(1)} variant="light"><i className="bi bi-arrow-right arrowIcon"></i></Button>}
         </Col>
