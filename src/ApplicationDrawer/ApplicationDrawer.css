@@ -10,3 +10,7 @@
 .filterHeader button {
     white-space: inherit;
 }
+
+#moneyButton {
+    margin: 1em;
+}
