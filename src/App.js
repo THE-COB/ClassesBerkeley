@@ -32,7 +32,7 @@ function App() {
   const [searchFix, setSearchFix] = useState('');
   const [jokeClasses, setJokeClasses] = useState(false)
   
-  const [semesterFilters, setSemesterFilters] = useState('Spring 23');
+  const [semesterFilters, setSemesterFilters] = useState('Fall 23');
   const [breadthFilters, setBreathFilters] = useState([]);
   const [genReqFilters, setGenReqFilters] = useState([]);
   const [openSeatsFilter, setOpenSeatsFilter] = useState(false);
@@ -53,6 +53,12 @@ function App() {
       let semesterCode = 2729;
 
       switch(semesterFilters) {
+        case 'Fall 23':
+          semesterCode = 2870;
+          break;
+        case 'Summer 23':
+          semesterCode = 2801;
+          break;
         case 'Spring 23':
           semesterCode = 2729;
           break;
@@ -75,7 +81,7 @@ function App() {
           semesterCode = 1961;
           break;
         default:
-          semesterCode = 2729;
+          semesterCode = 2870;
       }
       let paramObj = {
         'page': pageNum,
