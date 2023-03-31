@@ -33,7 +33,9 @@ function ApplicationDrawer(props) {
     'Spring 22',
     'Summer 22',
     'Fall 22',
-    'Spring 23'
+    'Spring 23',
+    'Summer 23',
+    'Fall 23'
   ]
 
   const handleToggle = () => setOpen(!open);
